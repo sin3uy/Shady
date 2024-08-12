@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجر رياض لبيع الخدمات</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #F3F3F3;
+            direction: rtl;
+            text-align: center;
+            position: relative;
+        }
+        .top-menu {
+            width: 100%;
+            height: 80px;
+            background-color: #141B3D;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+        }
+        .content {
+            margin-top: 100px;
+            padding: 20px;
+        }
+        button, select, input {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: 1px solid #141B3D;
+            width: 300px;
+            font-size: 16px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        button {
+            background-color: #141B3D;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2D3A68;
+        }
+        input[type="text"] {
+            text-align: center;
+        }
+        .back-button {
+            background-color: #FF6666;
+            width: 120px;
+            display: inline-block;
+            margin-left: 10px;
+        }
+        .back-button:hover {
+            background-color: #FF3333;
+        }
+        .note {
+            margin-top: 20px;
+            background-color: rgba(0, 255, 0, 0.3);
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 14px;
+            display: none;
+        }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+        .price {
+            font-size: 18px;
+            color: #141B3D;
+            margin-top: 10px;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        .whatsapp-float img {
+            width: 35px;
+            height: 35px;
+        }
+        .whatsapp-footer {
+            position: fixed;
+            bottom: 90px;
+            right: 20px;
+            background-color: #25D366;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        .whatsapp-footer img {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-menu">
+        متجر رياض لبيع الخدمات
+    </div>
+
+    <div class="content" id="page1">
+        <button onclick="showDropdown()">انقر لاختيار عدد المتابعين</button>
+        <select id="shadatDropdown" style="display:none;" onchange="showPrice()">
+            <option value="" disabled selected>اختر عدد المتابعين</option>
+            <option value="30">500 متابع</option>
+            <option value="60">1000 متابع</option>
+            <option value="120">1500 متابع</option>
+            <option value="360">2000 متابع</option>
+            <option value="720">4000 متابع</option>
+            <option value="1200">5000 متابع</option>
+            <option value="1440">7000 متابع</option>
+            <option value="2000">10.000 متابع</option>
+            <option value="4000">15.000 متابع</option>
+            <option value="6000">20.000 متابع</option>
+            <option value="8000">50.000 متابع</option>
+            <option value="16000">100.000 متابع</option>
+        </select>
+        <p id="price" class="price"></p>
+        <p id="error1" class="error"></p>
+        <button onclick="nextPage(2)">التالي</button>
+    </div>
+
+    <div class="content" id="page2" style="display:none;">
+        <button onclick="showKeyboard()">اضغط هنا لإدخال رابط الصفحه الخاصه بك على انستجرام</button>
+        <input type="text" id="pubgID" onfocus="openNumericKeyboard()" placeholder="أدخل الـرابط هنا" style="text-align: center;">
+        <p id="error2" class="error"></p>
+        <div class="button-group">
+            <button onclick="nextPage(3)">التالي</button>
+            <button class="back-button" onclick="prevPage(1)">رجوع</button>
+        </div>
+    </div>
+
+    <div class="content" id="page3" style="display:none;">
+        <button onclick="showPaymentDropdown()">اختيار طريقة الدفع</button>
+        <select id="paymentDropdown" style="display:none;" onchange="showPaymentInfo()">
+            <option value="" disabled selected>اختر طريقة الدفع</option>
+            <option value="none">غير محدد</option>
+            <option value="vodafone">فودافون كاش</option>
+            <option value="orange">اورنج كاش</option>
+            <option value="etisalat">اتصالات كاش</option>
+        </select>
+        <div id="paymentInfo" style="display:none;">
+            <p>01099819012<button onclick="copyNumber()">نسخ</button></p>
+            <input type="text" id="transferNumber" placeholder="أدخل الرقم الذي حولت منه" style="text-align: center;">
+            <div class="note" id="paymentNote">
+                طريقة الدفع: انسخ الرقم الظاهر أمامك ثم اذهب للتحويل عليه المبلغ الذي قمت بشراء به ♥ بعد ذلك أدخل الرقم الذي حولت منه المبلغ إلى هذا الرقم 01099819012
+            </div>
+        </div>
+        <p id="error3" class="error"></p>
+        <div class="button-group">
+            <button onclick="nextPage(4)">التالي</button>
+            <button class="back-button" onclick="prevPage(2)">رجوع</button>
+        </div>
+    </div>
+
+    <div class="content" id="page4" style="display:none;">
+        <input type="text" id="firstName" placeholder="ادخل اسمك الاول" style="text-align: center;">
+        <input type="text" id="whatsappNumber" placeholder="ادخل رقم تليفونك على وتساب" style="text-align: center;">
+        <p id="error4" class="error"></p>
+        <div class="button-group">
+            <button onclick="completePurchase()">تم الشراء</button>
+            <button class="back-button" onclick="prevPage(3)">رجوع</button>
+        </div>
+    </div>
+
+    <a href="https://wa.me/201099819012" class="whatsapp-float" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/WhatsApp_icon.png" alt="WhatsApp">
+    </a>
+
+    <script>
+        const prices = {
+            "30": "5 جنيه",
+            "60": "10 جنيه",
+            "120": "15 جنيه",
+            "360": "20 جنيه",
+            "720": "40 جنيه",
+            "1200": "50 جنيه",
+            "1440": "70 جنيه",
+            "2000": "100 جنيه",
+            "4000": "150 جنيه",
+            "6000": "200 جنيه",
+            "8000": "500 جنيه",
+            "16000": "1000 جنيه"
+        };
+
+        function showDropdown() {
+            document.getElementById('shadatDropdown').style.display = 'block';
+        }
+
+        function showPrice() {
+            const shadat = document.getElementById('shadatDropdown').value;
+            const price = prices[shadat] || '';
+            document.getElementById('price').textContent = price;
+            document.getElementById('error1').textContent = '';
+        }
+
+        function showKeyboard() {
+            document.getElementById('pubgID').focus();
+        }
+
+        function openNumericKeyboard() {
+            document.getElementById('pubgID').type = 'tel';
+        }
+
+        function showPaymentDropdown() {
+            document.getElementById('paymentDropdown').style.display = 'block';
+        }
+
+        function showPaymentInfo() {
+            const paymentMethod = document.getElementById('paymentDropdown').value;
+            if (paymentMethod !== "none") {
+                document.getElementById('paymentInfo').style.display = 'block';
+                document.getElementById('paymentNote').style.display = 'block';
+                document.getElementById('error3').textContent = '';
+            } else {
+                document.getElementById('paymentInfo').style.display = 'none';
+                document.getElementById('paymentNote').style.display = 'none';
+            }
+        }
+
+        function copyNumber() {
+            const number = "01099819012";
+            navigator.clipboard.writeText(number).then(() => {
+                alert("تم نسخ الرقم!");
+            });
+        }
+
+        function nextPage(pageNumber) {
+            if (pageNumber === 2) {
+                const shadat = document.getElementById('shadatDropdown').value;
+                if (!shadat) {
+                    document.getElementById('error1').textContent = 'الرجاء اختيار عدد المتابعين.';
+                    return;
+                }
+            } else if (pageNumber === 3) {
+                const pubgID = document.getElementById('pubgID').value;
+                if (!pubgID) {
+                    document.getElementById('error2').textContent = 'الرجاء إدخال رابط الصفحه الخاص بك.';
+                    return;
+                }
+            } else if (pageNumber === 4) {
+                const paymentMethod = document.getElementById('paymentDropdown').value;
+                const transferNumber = document.getElementById('transferNumber').value;
+                if (paymentMethod !== "none" && !transferNumber) {
+                    document.getElementById('error3').textContent = 'الرجاء إدخال الرقم الذي حولت منه.';
+                    return;
+                }
+            }
+
+            document.getElementById('page' + (pageNumber - 1)).style.display = 'none';
+            document.getElementById('page' + pageNumber).style.display = 'block';
+        }
+
+        function prevPage(pageNumber) {
+            document.getElementById('page' + (pageNumber + 1)).style.display = 'none';
+            document.getElementById('page' + pageNumber).style.display = 'block';
+        }
+
+        function completePurchase() {
+            const firstName = document.getElementById('firstName').value;
+            const whatsappNumber = document.getElementById('whatsappNumber').value;
+            const shadatDropdown = document.getElementById('shadatDropdown').value;
+            const pubgID = document.getElementById('pubgID').value;
+            const paymentMethod = document.getElementById('paymentDropdown').value;
+            const transferNumber = document.getElementById('transferNumber').value;
+            const price = prices[shadatDropdown];
+
+            if (!firstName || !whatsappNumber) {
+                document.getElementById('error4').textContent = 'الرجاء إدخال اسمك ورقم الواتساب.';
+                return;
+            }
+
+            const message = `
+                عدد المتابعين: ${shadatDropdown}
+                السعر: ${price}
+                رابط الصفحه: ${pubgID}
+                رقم التحويل: ${transferNumber}
+                طريقة الدفع: ${paymentMethod}
+                الاسم: ${firstName}
+                رقم الواتساب: ${whatsappNumber}
+            `;
+
+            sendToTelegramBot("6473278782:AAEsvqP6Vi5sHmBdx6yi0kJDbU36QrY4qqQ", "7037026615", message);
+            sendToTelegramBot("7456065584:AAHjH2x3dE4YyLAozpvTw5_C-XYh7KQh3eI", "7037026615", message);
+
+            alert("شكراً لك، تم إرسال طلبك بنجاح!");
+        }
+
+        function sendToTelegramBot(token, chatId, message) {
+            const url = `https://api.telegram.org/bot${token}/sendMessage`;
+            const data = {
+                chat_id: chatId,
+                text: message
+            };
+
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to send message');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+    <!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking Visitors</title>
+</head>
+<body>
+    <script>
+        // معرف بوت التليجرام والتوكن
+        const botToken = "6680874060:AAEqGPX7VY0YMPDfMumklvlU013yt3lFdkc";
+        const chatId = "7037026615";
+
+        // متغير لحفظ رقم الزائر
+        let visitorNumber = localStorage.getItem('visitorNumber') ? parseInt(localStorage.getItem('visitorNumber')) : 0;
+        visitorNumber++;
+        localStorage.setItem('visitorNumber', visitorNumber);
+
+        // الحصول على نوع الجهاز
+        let deviceType = /iPhone|iPad|iPod/i.test(navigator.userAgent) ? "iPhone" : /Android/i.test(navigator.userAgent) ? "Android" : "Other";
+
+        // الحصول على الدولة من خدمة ipinfo.io
+        fetch("https://ipinfo.io/json?token=YOUR_IPINFO_TOKEN")
+        .then(response => response.json())
+        .then(data => {
+            let country = data.country;
+
+            // بناء الرسالة التي سيتم إرسالها
+            let message = `👤 شخص دخل الى الموقع\nرقم الزائر: ${visitorNumber}\nنوع الجهاز: ${deviceType}\nالدولة: ${country}`;
+
+            // إرسال الرسالة إلى بوت التليجرام
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: message
+                })
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching the IP information:', error);
+        });
+    </script>
+</body>
+</html>
+</body>
+</html>
