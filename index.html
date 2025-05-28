@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حساباتي على وسائل التواصل الاجتماعي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #6d8cc4;
+            --facebook-color: #3b5998;
+            --telegram-color: #0088cc;
+            --whatsapp-color: #25d366;
+            --tiktok-color: #000000;
+            --email-color: #d44638;
+            --linkedin-color: #0077b5;
+            --phone-color: #4CAF50;
+            --psychology-color: #9c27b0;
+            --programming-color: #2196F3;
+            --cyber-color: #FF9800;
+            --bg-color: #1a1a2e;
+            --card-bg: rgba(255, 255, 255, 0.1);
+            --text-color: #ffffff;
+            --secondary-text: #d1d1d1;
+            --transition: all 0.3s ease-in-out;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            background-attachment: fixed;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .profile {
+            text-align: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .profile-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 15px;
+            border: 4px solid var(--primary-color);
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .profile-image:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(110, 140, 196, 0.5);
+        }
+
+        .profile-image::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border: 2px solid rgba(110, 140, 196, 0.3);
+            border-radius: 50%;
+            animation: pulse 3s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.7;
+            }
+            70% {
+                transform: scale(1.1);
+                opacity: 0.2;
+            }
+            100% {
+                transform: scale(0.95);
+                opacity: 0.7;
+            }
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile h1 {
+            margin-bottom: 10px;
+            color: var(--primary-color);
+            font-size: 32px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .profile h2 {
+            margin-bottom: 5px;
+            color: var(--text-color);
+            font-size: 24px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .profile p {
+            color: var(--secondary-text);
+            font-size: 18px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            padding: 0 10px;
+        }
+
+        .profile .bio {
+            color: var(--secondary-text);
+            font-size: 16px;
+            margin-top: 15px;
+            line-height: 1.8;
+            padding: 0 20px;
+            font-style: italic;
+        }
+
+        .jobs-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .job-item {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 8px 15px;
+            border-radius: 30px;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .job-item:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .job-item i {
+            margin-left: 8px;
+        }
+
+        .psychology {
+            color: var(--psychology-color);
+            border: 1px solid var(--psychology-color);
+        }
+
+        .programming {
+            color: var(--programming-color);
+            border: 1px solid var(--programming-color);
+        }
+
+        .cyber {
+            color: var(--cyber-color);
+            border: 1px solid var(--cyber-color);
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 18px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            font-size: 18px;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+            position: relative;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 100%;
+            text-align: center;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .social-link i {
+            font-size: 24px;
+            margin-left: 12px;
+            width: 30px;
+            text-align: center;
+        }
+
+        .facebook {
+            background: var(--facebook-color);
+        }
+
+        .telegram {
+            background: var(--telegram-color);
+        }
+
+        .whatsapp {
+            background: var(--whatsapp-color);
+        }
+
+        .tiktok {
+            background: linear-gradient(45deg, #000000, #25F4EE, #FE2C55);
+        }
+
+        .email {
+            background: var(--email-color);
+        }
+
+        .linkedin {
+            background: var(--linkedin-color);
+        }
+
+        .phone {
+            background: var(--phone-color);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--secondary-text);
+            font-size: 14px;
+        }
+
+        .footer-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            color: var(--primary-color);
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* تحسين التجربة على الأجهزة المحمولة */
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 15px;
+                max-width: 100%;
+            }
+            
+            .profile-image {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .profile h1 {
+                font-size: 26px;
+            }
+            
+            .profile h2 {
+                font-size: 20px;
+            }
+            
+            .profile p, .profile .bio {
+                font-size: 16px;
+            }
+            
+            .job-item {
+                font-size: 13px;
+                padding: 6px 12px;
+            }
+            
+            .social-link {
+                padding: 16px 20px;
+                font-size: 16px;
+            }
+            
+            .social-link i {
+                font-size: 20px;
+            }
+
+            .footer-title {
+                font-size: 14px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            
+            .profile h1 {
+                font-size: 22px;
+            }
+            
+            .profile h2 {
+                font-size: 18px;
+            }
+            
+            .profile p, .profile .bio {
+                font-size: 14px;
+            }
+            
+            .jobs-container {
+                gap: 10px;
+            }
+            
+            .job-item {
+                font-size: 12px;
+                padding: 5px 10px;
+            }
+            
+            .social-link {
+                padding: 14px 16px;
+                font-size: 14px;
+                border-radius: 40px;
+            }
+            
+            .social-link i {
+                font-size: 18px;
+                margin-left: 8px;
+            }
+
+            .footer-title {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .profile h1 {
+                font-size: 20px;
+            }
+            
+            .profile h2 {
+                font-size: 16px;
+            }
+            
+            .profile p, .profile .bio {
+                font-size: 13px;
+            }
+            
+            .job-item {
+                font-size: 11px;
+            }
+            
+            .social-link {
+                padding: 12px 14px;
+                font-size: 13px;
+                border-radius: 35px;
+            }
+            
+            .social-link i {
+                font-size: 16px;
+            }
+        }
+
+        /* إضافة تأثيرات حركية (animations) */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile, .social-link, .job-item {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .job-item:nth-child(1) { animation-delay: 0.1s; }
+        .job-item:nth-child(2) { animation-delay: 0.2s; }
+        .job-item:nth-child(3) { animation-delay: 0.3s; }
+
+        .social-link:nth-child(1) { animation-delay: 0.4s; }
+        .social-link:nth-child(2) { animation-delay: 0.5s; }
+        .social-link:nth-child(3) { animation-delay: 0.6s; }
+        .social-link:nth-child(4) { animation-delay: 0.7s; }
+        .social-link:nth-child(5) { animation-delay: 0.8s; }
+        .social-link:nth-child(6) { animation-delay: 0.9s; }
+        .social-link:nth-child(7) { animation-delay: 1.0s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile">
+            <div class="profile-image">
+                <img src="https://i.postimg.cc/GhZPwqYZ/389e95202ddec241c5a023d734876e8d.jpg" alt="الصورة الشخصية">
+            </div>
+            <h2>Shady Hussein</h2>
+            
+            <div class="jobs-container">
+                <div class="job-item psychology">
+                    <i class="fas fa-brain"></i>
+                    <span>رئيس نفسي</span>
+                </div>
+                <div class="job-item programming">
+                    <i class="fas fa-code"></i>
+                    <span>مبرمج</span>
+                </div>
+                <div class="job-item cyber">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>أمن سبراني</span>
+                </div>
+            </div>
+            
+            <div class="bio">🤔</div>
+        </div>
+        
+        <div class="social-links">
+            <a href="https://www.facebook.com/share/1Eo7CRqjsM/" class="social-link facebook" target="_blank">
+                <i class="fab fa-facebook-f"></i>
+                <span>فيسبوك</span>
+            </a>
+            
+            <a href="https://t.me/sh3dy" class="social-link telegram" target="_blank">
+                <i class="fab fa-telegram-plane"></i>
+                <span>تلجرام</span>
+            </a>
+            
+            <a href="https://wa.me/+201009123031" class="social-link whatsapp" target="_blank">
+                <i class="fab fa-whatsapp"></i>
+                <span>واتساب</span>
+            </a>
+            
+            
+            <a href="https://www.tiktok.com/@sy7_dn?_t=ZS-8whW7EqtlaC&_r=1" class="social-link tiktok" target="_blank">
+                <i class="fab fa-tiktok"></i>
+                <span>تيك توك</span>
+            </a>
+            
+            <a href="https://www.linkedin.com/me?trk=p_mwlite_feed-secondary_nav" class="social-link linkedin" target="_blank">
+                <i class="fab fa-linkedin-in"></i>
+                <span>لينكد إن</span>
+            </a>
+            
+            <a href="mailto:sin3uy@gmail.com" class="social-link email" target="_blank">
+                <i class="fas fa-envelope"></i>
+                <span>البريد الإلكتروني</span>
+            </a>
+        </div>
+
+        <footer>
+            <div class="footer-title">
+                <i class="fas fa-copyright"></i>
+                <span>2017-2025</span>
+            </div>
+        </footer>
+    </div>
+    
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // إضافة تأثير عند النقر على الروابط
+            const socialLinks = document.querySelectorAll('.social-link');
+            
+            socialLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // إضافة تأثير الضغط
+                    this.style.transform = 'scale(0.95)';
+                    
+                    // إعادة التأثير الأصلي بعد وقت قصير
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
